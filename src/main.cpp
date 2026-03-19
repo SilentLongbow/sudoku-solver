@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "src/sudoku.h"
+#include "sudoku.h"
 
 int main() {
   std::string Output = "HelloWorld";
