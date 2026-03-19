@@ -42,3 +42,7 @@
 
 # build output folder
 out/**
+
+# ide folders
+.idea/
+.vs/
