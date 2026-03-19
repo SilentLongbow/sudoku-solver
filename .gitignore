@@ -43,6 +43,9 @@
 # build output folder
 out/**
 
-# ide folders
+# IDE folders
 .idea/
 .vs/
+
+# Visual Studio CMake files
+CMakePresets.json
