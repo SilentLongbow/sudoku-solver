@@ -7,7 +7,4 @@ class SudokuSolverRecipe(ConanFile):
 
     def requirements(self):
         self.requires("glaze/7.2.0")
-
-    def layout(self):
-        cmake_layout(self)
 		
