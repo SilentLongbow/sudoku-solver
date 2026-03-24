@@ -5,6 +5,12 @@ class SudokuSolverRecipe(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps", "CMakeToolchain"
 
+    def configure(self):
+        self.options["gtest"].no_main = True
+
     def requirements(self):
         self.requires("glaze/7.2.0")
-		
+        self.requires("gtest/1.17.0")
+    
+    def layout(self):
+            cmake_layout(self)

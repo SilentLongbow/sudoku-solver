@@ -1,0 +1,1 @@
+conan install . --output-folder=. --build=missing --settings=build_type=Debug  --settings=compiler.cppstd=23 --settings=compiler.version=194 --conf=tools.env.virtualenv:powershell=pwsh --conf=tools.cmake.cmaketoolchain:generator=Ninja
