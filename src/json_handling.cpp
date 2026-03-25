@@ -4,29 +4,21 @@
 #include <vector>
 #include <format>
 #include <iostream>
+#include <print>
 
 bool puzzle_validity(SudokuPuzzle puzzle) {
 	return false;
 }
 
 
-SudokuPuzzle read_puzzle_json(std::string_view file_name) {
+SudokuPuzzle read_puzzle_json(std::string_view filename) {
 	std::string input_buffer{};
-	SudokuPuzzle simple_puzzle;
+	SudokuPuzzle loaded_puzzle;
 
-	auto error_code = glz::read_file_json(simple_puzzle, file_name, std::string{});
-	if (!error_code) {
-		simple_puzzle.puzzle_data;
-		for (int i = 0; i < simple_puzzle.puzzle_data.size(); i++) {
-			for (int j = 0; j < simple_puzzle.puzzle_data[i].size(); j++) {
-
-			}
-		}
+	auto error_code = glz::read_file_json(loaded_puzzle, filename, std::string{});
+	if (error_code) {
+		std::cerr << glz::format_error(error_code, filename) << std::endl;
 	}
-	else {
-		std::string something_bad = std::format("Issue reading the JSON file '{}'. Error is: {}", file_name, static_cast<int>(error_code.ec));
-		std::cerr << something_bad << std::endl;
-	}
-	SudokuPuzzle puzzle = { .puzzle_data = {} };
-	return puzzle;
+	
+	return loaded_puzzle;
 }

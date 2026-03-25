@@ -5,7 +5,7 @@
 #include <vector>
 
 struct SudokuPuzzle {
-	std::vector<std::vector<std::optional<int>>> puzzle_data;
+	std::vector<std::vector<int>> puzzle_data;
 };
 
 bool puzzle_validity(SudokuPuzzle puzzle);
