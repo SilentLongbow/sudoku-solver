@@ -9,4 +9,5 @@ add_executable(${PROJECT_NAME}  "src/sudoku-solver.cpp"  "src/json_handling.cpp"
 
 find_package(glaze REQUIRED)
 find_package(gtest REQUIRED)
+
 target_link_libraries(${PROJECT_NAME} glaze::glaze gtest::gtest)

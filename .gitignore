@@ -50,3 +50,4 @@ build/**
 
 # Visual Studio CMake files
 CMakePresets.json
+/CMakeUserPresets.json
