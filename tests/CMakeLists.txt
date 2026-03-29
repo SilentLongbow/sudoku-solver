@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(Tests)
+project(GTests)
 
 include(CMakePrintHelpers)
 
@@ -16,7 +16,7 @@ set(SOURCE_HEADER_FILES "${SOLVER_SRC_DIR}/json_handling.h" "${SOLVER_SRC_DIR}/s
 # Unit tests
 add_executable(${PROJECT_NAME} "solving_logic_test.cpp" "json_handling_test.cpp" "${SOURCE_HEADER_FILES}")
 
-target_include_directories(${PROJECT_NAME} PUBLIC "${SOLVER_SOURCE_DIR}")
+target_include_directories(${PROJECT_NAME} PUBLIC "../src")
 target_link_libraries(${PROJECT_NAME} PUBLIC ${SUDOKU_SOLVER_LIBRARY_NAME})
 set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY INCLUDE_DIRECTORIES ${SOLVER_SOURCE_DIR})
 
