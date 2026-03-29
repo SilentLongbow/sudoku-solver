@@ -6,11 +6,7 @@
 #include <Windows.h>
 
 #include "json_handling.h"
-
-void solve_puzzle(std::filesystem::path puzzle_file_path) {
-	auto puzzle = read_puzzle_json(puzzle_file_path.string());
-	std::print("The puzzle table looks like: \n\t{}", puzzle.puzzle_data);
-}
+#include "solving_logic.h"
 
 // This is a very basic argument parsing function that doesn't pick up POSIX-style arguments such as -rm,
 // -r -m would need to be used. This is 'stolen' from 
@@ -48,5 +44,6 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	solve_puzzle(input_file);
+	auto puzzle = read_puzzle_json(input_file.string());
+	solve_puzzle(puzzle);
 }

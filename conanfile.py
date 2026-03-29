@@ -6,7 +6,8 @@ class SudokuSolverRecipe(ConanFile):
     generators = "CMakeDeps", "CMakeToolchain"
 
     def configure(self):
-        self.options["gtest"].no_main = True
+        #self.options["gtest"].no_main = True
+        pass
 
     def requirements(self):
         self.requires("glaze/7.2.0")

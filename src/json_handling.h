@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 
-struct SudokuPuzzle {
-	std::vector<std::vector<int>> puzzle_data;
-};
+#include "puzzle_type.h"
 
-bool puzzle_validity(SudokuPuzzle puzzle);
-SudokuPuzzle read_puzzle_json(std::string_view);
+namespace input {
+	bool puzzle_validity(SudokuPuzzle puzzle);
+	SudokuPuzzle read_puzzle_json(std::string_view);
+}

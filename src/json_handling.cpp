@@ -6,12 +6,12 @@
 #include <iostream>
 #include <print>
 
-bool puzzle_validity(SudokuPuzzle puzzle) {
+bool input::puzzle_validity(SudokuPuzzle puzzle) {
 	return false;
 }
 
 
-SudokuPuzzle read_puzzle_json(std::string_view filename) {
+SudokuPuzzle input::read_puzzle_json(std::string_view filename) {
 	std::string input_buffer{};
 	SudokuPuzzle loaded_puzzle;
 
