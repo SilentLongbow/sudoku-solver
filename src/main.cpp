@@ -44,6 +44,6 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	auto puzzle = read_puzzle_json(input_file.string());
-	solve_puzzle(puzzle);
+	auto puzzle = input::read_puzzle_json(input_file.string());
+	sudoku::solve_puzzle(puzzle);
 }
