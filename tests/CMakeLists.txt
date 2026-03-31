@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(GTests)
+project(gtests)
 
 include(CMakePrintHelpers)
 
@@ -8,8 +8,7 @@ option(CMAKE_COMPILE_WARNING_AS_ERROR "Compile warnings as errors" ON)
 
 # Get paths for the code we want to test
 set(SUDOKU_SOLVER_LIBRARY_NAME solver)
-set(SOLVER_SRC_DIR  "C:/Users/mattj/source/sudoku-solver/src")
-message("==================================================${SOLVER_SRC_DIR}")
+set(SOLVER_SRC_DIR  "${CMAKE_SOURCE_DIR}/src")
 set(SOURCE_HEADER_FILES "${SOLVER_SRC_DIR}/json_handling.h" "${SOLVER_SRC_DIR}/solving_logic.h" "${SOLVER_SRC_DIR}/puzzle_type.h")
 
 
@@ -24,4 +23,4 @@ set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY INCLUDE_DIRECTORIES ${SOLVER
 find_package(gtest REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC gtest::gtest)
 
-cmake_print_properties(TARGETS ${PROJECT_NAME} PROPERTIES INCLUDE_DIRECTORIES LINK_DIRECTORIES)
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER Tests)

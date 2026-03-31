@@ -13,3 +13,7 @@ target_link_libraries(${SOLVER_LIBRARY} PRIVATE glaze::glaze)
 # Then the executable is 'just' main with the library statically linked
 add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${SOLVER_LIBRARY})
+
+# Split the library and the executable into two different folders in project views
+set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER Apps)
+set_target_properties(${SOLVER_LIBRARY} PROPERTIES FOLDER Libraries)
