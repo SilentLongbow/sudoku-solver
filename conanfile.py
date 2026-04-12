@@ -14,4 +14,4 @@ class SudokuSolverRecipe(ConanFile):
         self.requires("gtest/1.17.0")
     
     def layout(self):
-            cmake_layout(self)
+        cmake_layout(self)
