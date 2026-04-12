@@ -8,6 +8,7 @@ namespace sudoku
 	std::vector<int> indices_for_block_at(const int position);
 	std::vector<int> indices_for_row_at(const int position);
 	std::vector<int> indices_for_column_at(const int position);
+	bool value_is_valid_for_position(const SudokuPuzzle& puzzle, const int value, const int position);
 
 	void backtracking_solver(SudokuPuzzle& puzzle);
 

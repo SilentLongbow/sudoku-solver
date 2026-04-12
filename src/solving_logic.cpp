@@ -1,5 +1,6 @@
 #include "solving_logic.h"
 
+#include <algorithm>
 #include <cmath>
 #include <ranges>
 #include <vector>
@@ -12,18 +13,48 @@ namespace
 	constexpr int BLOCK_EDGE_LENGTH = 3;
 }
 
+bool value_present_in_indices(const SudokuPuzzle& puzzle, const int value, std::vector<int> indices)
+{
+	for (auto index : indices)
+	{
+		if (puzzle.puzzle_data.at(index) == value)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 // assumes a 9x9 sudoku grid
+// It is worth investigating std::views::chunk_view for future reference.
 std::vector<int> sudoku::indices_for_block_at(const int position)
 {
+	constexpr int indices_to_skip_per_block_row = PUZZLE_EDGE_LENGTH * BLOCK_EDGE_LENGTH;
+
 	const auto position_column = position % PUZZLE_EDGE_LENGTH;
-	const auto block_column_number = std::floor(static_cast<double>(position_column) / BLOCK_EDGE_LENGTH);
+	const auto block_column_number = static_cast<int>(std::floor(static_cast<double>(position_column) / BLOCK_EDGE_LENGTH));
 
-	const auto position_row = std::floor(static_cast<double>(position) / PUZZLE_EDGE_LENGTH);
-	const auto block_row_number = std::floor(static_cast<double>(position_row) / BLOCK_EDGE_LENGTH);
+	const auto position_row = static_cast<int>(std::floor(static_cast<double>(position) / PUZZLE_EDGE_LENGTH));
+	const auto block_row_number = static_cast<int>(std::floor(static_cast<double>(position_row) / BLOCK_EDGE_LENGTH));
 
-	int top_left = 0 + (BLOCK_EDGE_LENGTH * block_column_number) /* * some row multiplier? */;
-	int bottom_right = (2 + (BLOCK_EDGE_LENGTH * block_column_number)) + (2);
-	return std::vector<int>{};
+	// I want to redo this. But for now it works.
+	auto top_row = std::views::iota(0, 3)
+							 | std::views::transform
+								 (
+									 [block_column_number, block_row_number, indices_to_skip_per_block_row](int index)
+									 {
+										 return index + (BLOCK_EDGE_LENGTH * block_column_number) + (block_row_number * indices_to_skip_per_block_row);
+									 }
+								 );
+	auto middle_row = top_row | std::views::transform([](int index) { return index + PUZZLE_EDGE_LENGTH; });
+	auto bottom_row = top_row | std::views::transform([](int index) { return index + (PUZZLE_EDGE_LENGTH * 2); });
+	std::vector<int> block_indices{};
+	block_indices.reserve(BLOCK_EDGE_LENGTH ^ 2);
+	
+	block_indices.append_range(top_row);
+	block_indices.append_range(middle_row);
+	block_indices.append_range(bottom_row);
+	return block_indices;
 }
 
 // assumes a 9x9 sudoku grid
@@ -46,8 +77,17 @@ std::vector<int> sudoku::indices_for_column_at(const int position)
 	return column_indices;
 }
 
-bool value_is_valid_for_position(const SudokuPuzzle& puzzle, const int value, const int positon)
+bool sudoku::value_is_valid_for_position(const SudokuPuzzle& puzzle, const int value, const int position)
 {
+	auto row_indices = indices_for_row_at(position);
+	auto column_indices = indices_for_column_at(position);
+	auto block_indices = indices_for_block_at(position);
+
+	bool value_already_present = value_present_in_indices(puzzle, value, row_indices)
+		|| value_present_in_indices(puzzle, value, column_indices)
+		|| value_present_in_indices(puzzle, value, block_indices);
+	
+	return !value_already_present;
 }
 
 void sudoku::backtracking_solver(SudokuPuzzle& puzzle)
