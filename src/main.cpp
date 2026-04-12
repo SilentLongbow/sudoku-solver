@@ -3,7 +3,10 @@
 #include <iostream>
 #include <print>
 #include <vector>
+#ifdef WIN32
 #include <Windows.h>
+#endif
+
 
 #include "json_handling.h"
 #include "solving_logic.h"
@@ -12,7 +15,7 @@
 // -r -m would need to be used. This is 'stolen' from 
 // https://stackoverflow.com/questions/865668/parsing-command-line-arguments-in-c
 bool option_exists(char** begin, char** end, const std::string& option) {
-	return std::find(begin, end, option);
+	return std::find(begin, end, option) != end;
 }
 
 char* get_command_line_option(char** begin, char** end, const std::string& option) {
