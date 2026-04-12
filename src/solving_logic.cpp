@@ -29,7 +29,7 @@ bool value_present_in_indices(const SudokuPuzzle& puzzle, const int value, std::
 // It is worth investigating std::views::chunk_view for future reference.
 std::vector<int> sudoku::indices_for_block_at(const int position)
 {
-	constexpr int indices_to_skip_per_block_row = PUZZLE_EDGE_LENGTH * BLOCK_EDGE_LENGTH;
+	constexpr int rows_per_block = PUZZLE_EDGE_LENGTH * BLOCK_EDGE_LENGTH;
 
 	const auto position_column = position % PUZZLE_EDGE_LENGTH;
 	const auto block_column_number = static_cast<int>(std::floor(static_cast<double>(position_column) / BLOCK_EDGE_LENGTH));
@@ -41,9 +41,9 @@ std::vector<int> sudoku::indices_for_block_at(const int position)
 	auto top_row = std::views::iota(0, 3)
 							 | std::views::transform
 								 (
-									 [block_column_number, block_row_number, indices_to_skip_per_block_row](int index)
+									 [block_column_number, block_row_number](const int index)
 									 {
-										 return index + (BLOCK_EDGE_LENGTH * block_column_number) + (block_row_number * indices_to_skip_per_block_row);
+									 	return index + (BLOCK_EDGE_LENGTH * block_column_number) + (block_row_number * rows_per_block);
 									 }
 								 );
 	auto middle_row = top_row | std::views::transform([](int index) { return index + PUZZLE_EDGE_LENGTH; });

@@ -3,8 +3,6 @@
 #include "puzzle_type.h"
 #include "json_handling.h"
 
-
-
 // Should this actually be how I do this? I would almost
 // want a status returned too...
 TEST(JSONLoadingTest, NoFilenameGivesEmptyPuzzle) {
